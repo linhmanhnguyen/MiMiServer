@@ -3,53 +3,52 @@ CREATE SCHEMA MiMi;
 USE MiMi;
 
 CREATE TABLE Accounts (
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_name VARCHAR(255),
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    account_name VARCHAR(255),
     password VARCHAR(255),
     create_at TIMESTAMP,
-    refreshToken VARCHAR(255)
-);
-
-CREATE TABLE Users(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_name VARCHAR(255),
+    refreshToken VARCHAR(255),
     role_id INT
 );
 
-CREATE TABLE Roles(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE Users (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    account_id INT,
+    user_name VARCHAR(255),
+    FOREIGN KEY (account_id) REFERENCES Accounts(id)
+);
+
+CREATE TABLE Roles (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     role_name VARCHAR(255),
+    account_id INT,
+    FOREIGN KEY (account_id) REFERENCES Accounts(id)
+);
+
+CREATE TABLE AccountRoles (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    account_id INT,
+    role_id INT,
+    create_at TIMESTAMP,
+    status ENUM('Thành công', 'Thất bại'),
+    FOREIGN KEY (account_id) REFERENCES Accounts(id),
+    FOREIGN KEY (role_id) REFERENCES Roles(id)
+);
+
+CREATE TABLE Conversations (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name_conversation VARCHAR(255),
+    create_at TIMESTAMP,
     account_id INT
 );
 
-CREATE TABLE AccountRoles(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    account_id INT,
-	role_id INT,
-    create_at TIMESTAMP,
-    status ENUM('Thành công','Thất bại')
-);
-
-CREATE TABLE Conversations(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name_conversation VARCHAR(255),
-    create_at TIMESTAMP
-);
-
-CREATE TABLE Conversations_Messages(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    conversation_id INT,
-    message_id INT,
-    status ENUM('Thành công','Thất bại')
-);
-
-CREATE TABLE Messages(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE Messages (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     content TEXT,
-    status ENUM('Chưa gửi','Đang gửi','Đã gửi', 'Lỗi')
-);   
+    account_id INT,
+    conversation_id INT,
+    status ENUM('Chưa gửi', 'Đang gửi', 'Đã gửi', 'Lỗi'),
+    FOREIGN KEY (account_id) REFERENCES Accounts(id),
+    FOREIGN KEY (conversation_id) REFERENCES Conversations(id)
+);
 
-INSERT INTO Messages(content) values ('Hello World');
-
-SELECT * FROM Messages;
