@@ -1,6 +1,6 @@
 const conversationSchema = require('../validations/conversationSchema');
 const conversationModel = require('../model/conversation.model');
-const messageModel = require('../model/message.model');
+const messageModel = require('../model/message.model')
 const conversationRepository = require('../repositories/conversation.repository');
 const returnReponseUtil = require('../utils/returnResponse');
 
@@ -59,27 +59,44 @@ class ConversationController {
         }
     }
     
-    static async getAllMessagesInConversation(req, res) {
-        try {
-            const conversationId = req.params.id;
+    // static async getAllMessagesInConversation(req, res) {
+    //     try {
+    //         const conversationId = req.params.id;
     
-            returnReponseUtil.returnResponse(
-                res,
-                200,
-                true,
-                "Danh sách tin nhắn trong cuộc trò chuyện",
-                messages
-            );
-        } catch (error) {
-            console.error("Lỗi khi lấy tin nhắn trong cuộc trò chuyện:", error);
-            returnReponseUtil.returnResponse(
-                res,
-                500,
-                false,
-                "Đã xảy ra lỗi, vui lòng thử lại"
-            );
-        }
-    }
+    //         const conversation = await conversationRepository.findByPk(conversationId);
+    //         if (!conversation) {
+    //             returnReponseUtil.returnResponse(
+    //                 res,
+    //                 404,
+    //                 false,
+    //                 "Cuộc trò chuyện không tồn tại"
+    //             );
+    //             return;
+    //         }
+    
+    //         const messages = await messageModel.findAll({
+    //             where: {
+    //                 conversation_id: conversationId,
+    //             },
+    //         });
+    
+    //         returnReponseUtil.returnResponse(
+    //             res,
+    //             200,
+    //             true,
+    //             "Danh sách tin nhắn trong cuộc trò chuyện",
+    //             messages
+    //         );
+    //     } catch (error) {
+    //         console.error("Lỗi khi lấy tin nhắn trong cuộc trò chuyện:", error);
+    //         returnReponseUtil.returnResponse(
+    //             res,
+    //             500,
+    //             false,
+    //             "Đã xảy ra lỗi, vui lòng thử lại"
+    //         );
+    //     }
+    // }
 
 
     static async updateConversation(req, res) {
