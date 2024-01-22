@@ -8,8 +8,6 @@ router.get('/', conversationController.getAllConversations);
 
 router.get('/:id', conversationController.getConversationById);
 
-// router.get('/:id/messages',  conversationController.getAllMessagesInConversation);
-
 router.put('/:id', conversationController.updateConversation);
 
 router.delete('/:id', conversationController.deleteConversation);

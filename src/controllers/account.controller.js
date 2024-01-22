@@ -16,7 +16,7 @@ class AccountController {
                 res,
                 200,
                 true,
-                "Get All Accounts Successfully", 
+                "Lấy ra danh sách tài khoản thành công", 
                 result
             );
         } else {

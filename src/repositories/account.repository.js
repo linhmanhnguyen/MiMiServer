@@ -11,11 +11,12 @@ class AccountRepository {
         user_name,
         password,
         create_at,
-        refreshToken
+        refreshToken, 
+        role_id,
     ) {
         const query = `
-            INSERT INTO Accounts (user_name, password, create_at, refreshToken)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO Accounts (account_name, password, create_at, refreshToken, role_id)
+            VALUES (?, ?, ?, ?, ?)
         `;
 
         const hashedPassword = await bcrypt.hash(Password, 10);
@@ -24,7 +25,8 @@ class AccountRepository {
             user_name,
             hashedPassword,
             create_at,
-            refreshToken
+            refreshToken,
+            role_id,
         ];
 
         const result = await connection.query(query, params);
@@ -37,7 +39,7 @@ class AccountRepository {
 
     static async GetAllAccounts() {
         const query = `
-            SELECT (id, user_name, create_at) FROM Accounts
+            SELECT (id, account_name, create_at, role_id) FROM Accounts
         `;
         const params = []
         const result = await connection.query(query, params);
@@ -50,7 +52,7 @@ class AccountRepository {
 
     static async GetAccountByID() {
         const query = `
-            SELECT (id, user_name, create)
+            SELECT (id, account_name, create_at, role_id)
             FROM Accounts
             WHERE id = ?
         `;
@@ -85,25 +87,6 @@ class AccountRepository {
         const result = await connection.query(query, params);
         return result;
     }
-
-  /**
-   * Function Repository: Gán tài khoản vừa được tạo với role ID
-   */
-  static async InsertRoleForAccount(
-    account_id,
-    role_id,
-    create_at,
-    status
-  ) {
-    const query = `
-        INSERT INTO AccountRoles (account_id, role_id, create_at, status) 
-        VALUES (?, ?, ?, ?)
-    `;
-    const params = [account_id, role_id, create_at, status];
-    const result = await connection.query(query, params);
-    return result;
-  }
-
 }
 
 module.exports = AccountRepository;
