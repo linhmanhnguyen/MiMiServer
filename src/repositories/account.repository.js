@@ -1,5 +1,5 @@
 const connection = require("../configs/MySQLConnect");
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 
 class AccountRepository {
 
@@ -7,16 +7,17 @@ class AccountRepository {
    * Function Repository: Thêm thông tin tài khoản cho 1 người dùng
    */
 
-    static async InsertAcount(
+    static async insertAcount(
         user_name,
         password,
         create_at,
         refreshToken, 
         role_id,
+        user_id,
     ) {
         const query = `
-            INSERT INTO Accounts (account_name, password, create_at, refreshToken, role_id)
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO Accounts (account_name, password, create_at, refreshToken, role_id, user_id)
+            VALUES (?, ?, ?, ?, ?, ?)
         `;
 
         const hashedPassword = await bcrypt.hash(Password, 10);
@@ -27,6 +28,7 @@ class AccountRepository {
             create_at,
             refreshToken,
             role_id,
+            user_id,
         ];
 
         const result = await connection.query(query, params);
@@ -37,9 +39,9 @@ class AccountRepository {
    * Function Repository: Lấy toàn bộ danh sách tài khoản
    */
 
-    static async GetAllAccounts() {
+    static async getAllAccounts() {
         const query = `
-            SELECT (id, account_name, create_at, role_id) FROM Accounts
+            SELECT id, account_name, create_at, role_id, user_id FROM Accounts
         `;
         const params = []
         const result = await connection.query(query, params);
@@ -50,9 +52,9 @@ class AccountRepository {
    * Function Repository: Lấy thông tin chi tiết của 1 tài khoản bằng ID
    */
 
-    static async GetAccountByID() {
+    static async getAccountByID(id) {
         const query = `
-            SELECT (id, account_name, create_at, role_id)
+            SELECT id, account_name, create_at, role_id, user_id
             FROM Accounts
             WHERE id = ?
         `;
@@ -62,10 +64,10 @@ class AccountRepository {
     }
 
  /**
-   * Function Repository: Cập nhập thông tin chi tiết của 1 tài khoản bằng ID
+   * Function Repository: Đổi mật khẩu tài khoản bằng ID
    */
 
-    static async UpdateAccountByID(password, id) {
+    static async updateAccountByID(id, password) {
         const query = `
             UPDATE Accounts 
             SET password = ?
@@ -81,7 +83,7 @@ class AccountRepository {
    * Function Repository: Xóa thông tin tài khoản trong 1 thông tin người dùng
    */
 
-    static async DeleteAccountByID(id){
+    static async deleteAccountByID(id){
         const query = `DELETE FROM Accounts WHERE id = ?`
         const params = [id];
         const result = await connection.query(query, params);

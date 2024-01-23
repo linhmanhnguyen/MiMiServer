@@ -68,7 +68,7 @@ class MessageController {
                     res,
                     200,
                     true,
-                    "Message deleted successfully",
+                    "Tin nhắn đã bị xoá",
                     result
                 );
             } else {
@@ -76,16 +76,16 @@ class MessageController {
                     res,
                     404,
                     false,
-                    "Message not found"
+                    "Không tìm thấy tin nhắn"
                 );
             }
         } catch (error) {
-            console.error("Error deleting message:", error);
+            console.error("Lỗi khi xoá tin nhắn", error);
             returnReponseUtil.returnResponse(
                 res,
                 400,
                 false,
-                "An error has occurred, please try again"
+                "Đã xảy ra lỗi, vui lòng thử lại"
             );
         }
     }

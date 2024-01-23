@@ -1,6 +1,4 @@
 const conversationSchema = require('../validations/conversationSchema');
-const conversationModel = require('../models/conversation.model');
-const messageModel = require('../models/message.model')
 const conversationRepository = require('../repositories/conversation.repository');
 const returnReponseUtil = require('../utils/returnResponse');
 
@@ -74,7 +72,7 @@ class ConversationController {
                     res,
                     200,
                     true,
-                    "Successfully updated conversation",
+                    "Thông tin cuộc trò hội thoại đã được cập nhật",
                     result
                 );
             } else {
@@ -82,16 +80,16 @@ class ConversationController {
                     res,
                     404,
                     false,
-                    "Conversation not found"
+                    "Không tìm thấy cuộc hội thoại"
                 );
             }
         } catch (error) {
-            console.error("Error updating conversation:", error);
+            console.error("Đã có lỗi xảy ra, vui lòng thử lại", error);
             returnReponseUtil.returnResponse(
                 res,
                 400,
                 false,
-                "An error has occurred, please try again"
+                "Đã có lỗi xảy ra, vui lòng thử lại"
             );
         }
     }
@@ -107,7 +105,7 @@ class ConversationController {
                     res,
                     200,
                     true,
-                    "Successfully deleted conversation",
+                    "Cuộc hội thoại đã bị xoá",
                     result
                 );
             } else {
@@ -115,16 +113,16 @@ class ConversationController {
                     res,
                     404,
                     false,
-                    "Conversation not found"
+                    "Không tìm thấy cuộc hội thoại"
                 );
             }
         } catch (error) {
-            console.error("Error deleting conversation:", error);
+            console.error("Lỗi khi xoá cuộc hội thoại", error);
             returnReponseUtil.returnResponse(
                 res,
                 400,
                 false,
-                "An error has occurred, please try again"
+                "Đã có lỗi xảy ra, vui lòng thử lại"
             );
         }
     }

@@ -9,6 +9,23 @@ CREATE TABLE Roles (
 
 INSERT INTO Roles(role_name) VALUES ('user'), ('admin');
 
+CREATE TABLE Users (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_name VARCHAR(255),
+    birthday DATETIME,
+    gender VARCHAR(255),
+    country VARCHAR(255)
+);
+
+INSERT INTO Users (user_name, birthday, gender, country)
+VALUES ('John Doe', '1990-05-15 00:00:00', 'Male', 'USA');
+
+INSERT INTO Users (user_name, birthday, gender, country)
+VALUES ('Jane Smith', '1985-08-22 00:00:00', 'Female', 'Canada');
+
+INSERT INTO Users (user_name, birthday, gender, country)
+VALUES ('Alice Johnson', '1995-03-10 00:00:00', 'Female', 'UK');
+
 CREATE TABLE Accounts (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     account_name VARCHAR(255),
@@ -16,18 +33,16 @@ CREATE TABLE Accounts (
     create_at TIMESTAMP,
     refreshToken VARCHAR(255),
     role_id INT,
-    FOREIGN KEY (role_id) REFERENCES Roles(id)
+    user_id INT,
+    FOREIGN KEY (role_id) REFERENCES Roles(id),
+    FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
-INSERT INTO Accounts(account_name, password, refreshToken, role_id)
-VALUES ('linhnm', '123456', '', 1), ('demo1', '123456', '', 2), ('demo2', '123456', '',2);
+INSERT INTO Accounts(account_name, password, refreshToken, role_id, user_id)
+VALUES ('linhnm', '123456', '', 1, 1), ('demo1', '123456', '', 2, 2), ('demo2', '123456', '',2 ,3);
 
-CREATE TABLE Users (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    account_id INT,
-    user_name VARCHAR(255),
-    FOREIGN KEY (account_id) REFERENCES Accounts(id)
-);
+SELECT * FROM Accounts;
+
 
 CREATE TABLE Conversations (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -46,8 +61,5 @@ CREATE TABLE Messages (
     FOREIGN KEY (conversation_id) REFERENCES Conversations(id)
 );
 
-SELECT * FROM Messages WHERE conversation_id = 1;
 
-SELECT * FROM Messages;
-SELECT * FROM Conversations;
 

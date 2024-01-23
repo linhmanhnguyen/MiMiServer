@@ -1,107 +1,121 @@
-const AccountRepository = ('../repositories/AccountRepository');
+const accountRepository = require('../repositories/account.repository');
 const {
     accountSchema,
-    updateAccountSchema 
-} =  require('../validations/accountSchema');
-
+    registerAccountSchema,
+    updateAccountSchema
+} = require('../validations/accountSchema');
 const jwt = require('jsonwebtoken');
 const returnResponseUtil = require('../utils/returnResponse');
-const ReturnResponseUtil = require('../utils/returnResponse');
 
 class AccountController {
-    static async GetAllAccounts(req, res) {
-        var result = await AccountRepository.GetAllAccounts();
-        if (result.length > 0){
-            ReturnResponseUtil.returnResponse(
-                res,
-                200,
-                true,
-                "Lấy ra danh sách tài khoản thành công", 
-                result
-            );
-        } else {
+    static async getAllAccounts(req, res) {
+        try {
+            var result = await AccountRepository.getAllAccounts();
+            if (result.length > 0) {
+                returnResponseUtil.returnResponse(
+                    res,
+                    200,
+                    true,
+                    "Lấy ra danh sách tài khoản thành công",
+                    result
+                );
+            } else {
+                returnResponseUtil.returnResponse(
+                    res,
+                    404,
+                    false,
+                    "Không tìm thấy tài khoản"
+                );
+            }
+        } catch (error) {
+            console.error(error);
             returnResponseUtil.returnResponse(
                 res,
-                404,
+                500,
                 false,
-                "No records found at the moment"
+                "Đã có lỗi xảy ra khi lấy danh sách tài khoản"
             );
         }
     }
- /**
-   * Function Controller: Lấy thông tin tài khoản bằng ID tài khoản
-   */
-    static async GetAccountByID(){
-        var id = req.params.id;
-        var result = await AccountRepository.GetAccountByID(id);
-        if (result.length > 0){
-            ReturnResponseUtil.returnResponse(
+
+    static async getAccountByID(req, res) {
+        try {
+            var id = req.params.id;
+            var result = await accountRepository.getAccountByID(id);
+            if (result.length > 0) {
+                returnResponseUtil.returnResponse(
+                    res,
+                    200,
+                    true,
+                    "Thành công",
+                    result
+                );
+            } else {
+                returnResponseUtil.returnResponse(
+                    res,
+                    404,
+                    false,
+                    "Không tìm thấy tài khoản"
+                );
+            }
+        } catch (error) {
+            console.error(error);
+            returnResponseUtil.returnResponse(
                 res,
-                200,
-                true,
-                "Get Account By ID successfully"
-            );
-        } else {
-            ReturnResponseUtil.returnResponse(
-                res,
-                404,
+                500,
                 false,
-                "No records found at the moment"
+                "Đã có lỗi xảy ra khi lấy thông tin tài khoản"
             );
         }
     }
- /**
-   * Function Controller: Cập nhật tài khoản bằng ID
-   */
-    static async updateAccountByID(){
+
+    static async updateAccountByID(req, res) {
         try {
             await updateAccountSchema.validateAsync(req.body);
 
             var id = req.params.id;
-            var password = req.params.password;
-            var result = await AccountRepository.updateAccountByID(
-                id,
-                password
-            )
-            if (result){
-                ReturnResponseUtil.returnResponse(
+            var password = req.body.password; 
+
+            var result = await accountRepository.updateAccountByID(id, password);
+
+            if (result) {
+                returnResponseUtil.returnResponse(
                     res,
                     200,
                     true,
-                    "Updated User Account Successfully"
-                  );
-                }
+                    "Sửa đổi thông tin tài khoản thành công"
+                );
+            }
         } catch (error) {
-            ReturnResponseUtil.returnResponse(
+            console.error(error);
+            returnResponseUtil.returnResponse(
                 res,
                 400,
                 false,
-                "An error has occurred, please try again"
+                "Đã có lỗi xảy ra, vui lòng thử lại"
             );
         }
     }
- /**
-   * Function Controller: Xóa tài khoản bằng ID tài khoản
-   */
-    static async DeleteAccountByID(req, res) {
+
+    static async deleteAccountByID(req, res) {
         try {
             var id = req.params.id;
-
-            var result = await AccountRepository.DeleteAccountByID(id);
+            var result = await AccountRepository.deleteAccountByID(id);
             if (result) {
-                ReturnResponseUtil.returnResponse(
-                res,
-                200,
-                true,
-                "Deleted User Account successfully"
+                returnResponseUtil.returnResponse(
+                    res,
+                    200,
+                    true,
+                    "Xoá tài khoản thành công"
                 );
-            }   
+            }
         } catch (error) {
-            ReturnResponseUtil.returnResponse(
-            res,
-            400,
-            false,
-            "An error has occurred, please try again"
+            console.error(error);
+            returnResponseUtil.returnResponse(
+                res,
+                400,
+                false,
+                "Đã có lỗi xảy ra khi xoá tài khoản"
             );
         }
     }
