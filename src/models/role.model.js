@@ -1,10 +1,10 @@
 class RoleModel {
     constructor(
-        role_name,
-        account_id
+        id,
+        role_name
     ){
-        this.role_name = role_name,
-        this.account_id = account_id
+        this.id = id;
+        this.role_name = role_name;
     }
 }
 

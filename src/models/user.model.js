@@ -1,10 +1,14 @@
 class UserModel {
     constructor(
         user_name,
-        role_id
+        birthday,
+        gender, 
+        country
     ) {
         this.user_name = user_name;
-        this.role_id = role_id;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.country = country;
     }
 }
 

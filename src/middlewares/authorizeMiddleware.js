@@ -1,11 +1,11 @@
-const ReturnResponseUtil = require("../utils/returnResponse");
+const returnResponseUtil = require("../utils/returnResponse");
 
 function authorize(roles) {
   return (req, res, next) => {
     const userRole = req.user.role;
 
     if (!roles.includes(userRole)) {
-      ReturnResponseUtil.returnResponse(
+      returnResponseUtil.returnResponse(
         res,
         403,
         false,

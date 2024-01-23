@@ -38,12 +38,6 @@ CREATE TABLE Accounts (
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
-INSERT INTO Accounts(account_name, password, refreshToken, role_id, user_id)
-VALUES ('linhnm', '123456', '', 1, 1), ('demo1', '123456', '', 2, 2), ('demo2', '123456', '',2 ,3);
-
-SELECT * FROM Accounts;
-
-
 CREATE TABLE Conversations (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name_conversation VARCHAR(255),

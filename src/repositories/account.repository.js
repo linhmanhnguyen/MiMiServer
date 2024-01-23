@@ -3,6 +3,29 @@ const bcrypt = require('bcrypt');
 
 class AccountRepository {
 
+    /*
+    *Funcition Repository: Tìm kiếm tài khoản bằng tên tài khoản
+    */
+
+    static async searchAccountByAccountName(accountname) {
+        const query = ` 
+            SELECT 
+                Accounts.id, Accounts.account_name, Accounts.password, Accounts.role_id, Roles.role_name, Users.id, Users.user_name
+            FROM 
+                Accounts
+            JOIN 
+                Users ON Accounts.user_id = Users.id
+            JOIN 
+                Roles ON Accounts.role_id = Roles.id
+            WHERE 
+                Accounts.account_name = 'linhnm';
+        `;
+
+        const params = [accountname];
+        const result = await connection.query(query, params);
+        return result;
+    }
+
   /**
    * Function Repository: Thêm thông tin tài khoản cho 1 người dùng
    */
@@ -89,6 +112,22 @@ class AccountRepository {
         const result = await connection.query(query, params);
         return result;
     }
+ /**
+   * Function Repository: Gán tài khoản vừa được tạo với role ID
+   */
+  static async InsertRoleForAccount(
+    account_id,
+    role_id,
+    CreateDate,
+    Status
+  ) {
+    const query = `
+                        INSERT INTO user_roles (userAccount_id, role_id, createDate, status) 
+                        VALUES (?, ?, ?, ?)`;
+    const params = [UserAccount_ID, Role_ID, CreateDate, Status];
+    const result = await connection.query(query, params);
+    return result;
+  }
 }
 
 module.exports = AccountRepository;
