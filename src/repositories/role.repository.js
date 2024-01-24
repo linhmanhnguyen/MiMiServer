@@ -1,5 +1,4 @@
 const connection =  require('../configs/MySQLConnect');
-const RoleModel = require('../models/role.model');
 const roleModel = require('../models/role.model')
 
 class RoleRepository {
@@ -14,14 +13,14 @@ class RoleRepository {
         const roles = [];
 
         for (const row of result) {
-            const role = new RoleModel(row.id, row.role_name);
+            const role = new roleModel(row.id, row.role_name);
             roles.push(role);
         }
 
         return roles;
     }
 
-    static getRolesByID(id) {
+    static async getRolesByID(id) {
         const query = `
             SELECT * FORM Roles WHERE id = ?
         `
@@ -32,7 +31,7 @@ class RoleRepository {
             return null;
         }
 
-        const role = new RoleModel(result[0].id, result[0].role_name);
+        const role = new roleModel(result[0].id, result[0].role_name);
     }
 
 }

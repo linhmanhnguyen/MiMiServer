@@ -17,66 +17,6 @@ const currentTime = moment()
 
 class AccountController {
 
-    static async addAccount(req, res) {
-        try {
-            await accountSchema.validateAsync(req.body);
-
-            var account_name = req.body.account_name;
-            var password = req.body.password;
-            var create_at = currentTime;
-            var refreshToken = GenerateAccessToken(account_name)
-            var role_id = req.body.role_id;
-            var user_id = req.body.user_id;
-
-            var searchAccount = await accountRepository.searchAccountByAccountName(account_name);
-            if (searchAccount.lenght > 0) {
-                returnResponseUtil.returnResponse(res, 400, false, 'Tên tài khoản đã tồn tại')
-            } else {
-                var result = await accountRepository.insertAcount(
-                    account_name,
-                    password,
-                    create_at,
-                    refreshToken
-                );
-                if (result) {
-                    var accountID = result.insertId;
-          
-                    var resultInsertRole =
-                      await UserAccountRepository.InsertRoleForUserAccount(
-                        userAccount_ID,
-                        role_ID,
-                        createDate,
-                        status
-                      );
-                    if (resultInsertRole) {
-                      ReturnResponseUtil.returnResponse(
-                        res,
-                        200,
-                        true,
-                        "Create User Account Successfully",
-                        userAccount_ID
-                      );
-                    } else {
-                      ReturnResponseUtil.returnResponse(
-                        res,
-                        400,
-                        false,
-                        "An error has occurred, please try again"
-                      );
-                    }
-                  } else {
-                    ReturnResponseUtil.returnResponse(
-                      res,
-                      400,
-                      false,
-                      "An error has occurred, please try again"
-                    );
-                  }
-            }
-
-        }
-    }
-
     static async getAllAccounts(req, res) {
         try {
             var result = await accountRepository.getAllAccounts();
@@ -169,7 +109,7 @@ class AccountController {
     static async deleteAccountByID(req, res) {
         try {
             var id = req.params.id;
-            var result = await AccountRepository.deleteAccountByID(id);
+            var result = await accountRepository.deleteAccountByID(id);
             if (result) {
                 returnResponseUtil.returnResponse(
                     res,
@@ -189,14 +129,5 @@ class AccountController {
         }
     }
 }
-
-function generateRefreshToken(account_name) {
-    const refreshToken = jwt.sign(
-      { account_name },
-      process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: "30d" }
-    );
-    return refreshToken;
-  }
 
 module.exports = AccountController;

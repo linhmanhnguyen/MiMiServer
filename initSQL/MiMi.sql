@@ -17,18 +17,9 @@ CREATE TABLE Users (
     country VARCHAR(255)
 );
 
-INSERT INTO Users (user_name, birthday, gender, country)
-VALUES ('John Doe', '1990-05-15 00:00:00', 'Male', 'USA');
-
-INSERT INTO Users (user_name, birthday, gender, country)
-VALUES ('Jane Smith', '1985-08-22 00:00:00', 'Female', 'Canada');
-
-INSERT INTO Users (user_name, birthday, gender, country)
-VALUES ('Alice Johnson', '1995-03-10 00:00:00', 'Female', 'UK');
-
 CREATE TABLE Accounts (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    account_name VARCHAR(255),
+    account_name VARCHAR(255) UNIQUE,
     password VARCHAR(255),
     create_at TIMESTAMP,
     refreshToken VARCHAR(255),
@@ -37,6 +28,7 @@ CREATE TABLE Accounts (
     FOREIGN KEY (role_id) REFERENCES Roles(id),
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
+
 
 CREATE TABLE Conversations (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -55,5 +47,8 @@ CREATE TABLE Messages (
     FOREIGN KEY (conversation_id) REFERENCES Conversations(id)
 );
 
-
-
+SELECT * FROM Roles;
+SELECT * FROM Users;
+SELECT * FROM Accounts;
+SELECT * FROM Conversations;
+SELECT * FROM Messages;

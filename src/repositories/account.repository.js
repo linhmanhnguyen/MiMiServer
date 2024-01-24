@@ -18,7 +18,7 @@ class AccountRepository {
             JOIN 
                 Roles ON Accounts.role_id = Roles.id
             WHERE 
-                Accounts.account_name = 'linhnm';
+                Accounts.account_name = ?;
         `;
 
         const params = [accountname];
@@ -30,34 +30,31 @@ class AccountRepository {
    * Function Repository: Thêm thông tin tài khoản cho 1 người dùng
    */
 
-    static async insertAcount(
-        user_name,
+    static async insertAccount(
+        account_name,
         password,
         create_at,
-        refreshToken, 
-        role_id,
-        user_id,
+        refreshToken
     ) {
         const query = `
-            INSERT INTO Accounts (account_name, password, create_at, refreshToken, role_id, user_id)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO Accounts (account_name, password, create_at, refreshToken)
+            VALUES (?, ?, ?, ?)
         `;
 
-        const hashedPassword = await bcrypt.hash(Password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         const params = [
-            user_name,
+            account_name,
             hashedPassword,
             create_at,
-            refreshToken,
-            role_id,
-            user_id,
+            refreshToken
         ];
 
         const result = await connection.query(query, params);
         return result;
 
     }
+
   /**
    * Function Repository: Lấy toàn bộ danh sách tài khoản
    */
@@ -112,19 +109,13 @@ class AccountRepository {
         const result = await connection.query(query, params);
         return result;
     }
- /**
-   * Function Repository: Gán tài khoản vừa được tạo với role ID
+
+  /**
+   * Function Repository: Tìm tài khoản bằng username
    */
-  static async InsertRoleForAccount(
-    account_id,
-    role_id,
-    CreateDate,
-    Status
-  ) {
-    const query = `
-                        INSERT INTO user_roles (userAccount_id, role_id, createDate, status) 
-                        VALUES (?, ?, ?, ?)`;
-    const params = [UserAccount_ID, Role_ID, CreateDate, Status];
+  static async checkExistAccount(account_name) {
+    const query = `SELECT * FROM Accounts WHERE account_name = ?`;
+    const params = [account_name];
     const result = await connection.query(query, params);
     return result;
   }

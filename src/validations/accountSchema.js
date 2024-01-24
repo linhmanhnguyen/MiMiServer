@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 const accountSchema = Joi.object({
-  account_name: Joi.string().pattern(/^(03|05|07|08|09)[0-9]{8}$/),
+  account_name: Joi.string().required(),
   password: Joi.string().required(),
   created_at: Joi.date().iso().required(),
   role_id: Joi.number().integer().positive().required(),
@@ -9,11 +9,9 @@ const accountSchema = Joi.object({
 });
 
 const registerAccountSchema = Joi.object({
-  username: Joi.string().pattern(/^(03|05|07|08|09)[0-9]{8}$/),
+  account_name: Joi.string().required(),
   password: Joi.string().required(),
-  fullname: Joi.string().required(),
-  user_id: Joi.number().integer().positive().required(),
-  role_id: Joi.number().integer().positive().required(),
+  full_name: Joi.string().required()
 });
 
 const updateAccountSchema = Joi.object({
