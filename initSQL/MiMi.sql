@@ -17,6 +17,8 @@ CREATE TABLE Users (
     country VARCHAR(255)
 );
 
+insert into Users(user_name, gender, country) values ('linh manh nguyen', 'male', 'VietNam');
+
 CREATE TABLE Accounts (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     account_name VARCHAR(255) UNIQUE,
@@ -28,6 +30,7 @@ CREATE TABLE Accounts (
     FOREIGN KEY (role_id) REFERENCES Roles(id),
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
+SELECT * FROM Accounts WHERE account_name = 'linh';
 
 
 CREATE TABLE Conversations (

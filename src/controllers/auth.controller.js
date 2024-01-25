@@ -17,9 +17,6 @@ class AuthController {
         const password = req.body.password;
     
         const account = await accountRepository.searchAccountByAccountName(account_name);
-
-        console.log(account.length)
-    
         if (account.length > 0) {
           const checkPassword = await bcrypt.compare(password, account[0].password);
           if (!checkPassword) {
@@ -54,64 +51,64 @@ class AuthController {
         }
     }
 
-    static async register(req, res) {
-        try {
-            await registerAccountSchema.validateAsync({
-                account_name: req.body.account_name,
-                password: req.body.password,
-                full_name: req.body.full_name,
-            }) 
+    // static async register(req, res) {
+    //     try {
+    //         await registerAccountSchema.validateAsync({
+    //             account_name: req.body.account_name,
+    //             password: req.body.password,
+    //             full_name: req.body.full_name,
+    //         }) 
  
-            const { account_name, password } = req.body
-            const create_at = currentTime;
-            const refreshtoken = "";
+    //         const { account_name, password } = req.body
+    //         const create_at = currentTime;
+    //         const refreshtoken = "";
 
-            const checkExistAccount = await accountRepository.checkExistAccount(
-                account_name
-            );
-            if (checkExistAccount.length > 0) {
-                returnResponseUtil.returnResponse(
-                  res,
-                  404,
-                  false,
-                  `Tên tài khoản đã tồn tại`
-                );
-            } else {   
-                var { insertId: accountID } =
-                await accountRepository.insertAccount(
-                  account_name,
-                  password,
-                  create_at,
-                  refreshtoken,
-                );   
+    //         const checkExistAccount = await accountRepository.checkExistAccount(
+    //             account_name
+    //         );
+    //         if (checkExistAccount.length > 0) {
+    //             returnResponseUtil.returnResponse(
+    //               res,
+    //               404,
+    //               false,
+    //               `Tên tài khoản đã tồn tại`
+    //             );
+    //         } else {   
+    //             var { insertId: accountID } =
+    //             await accountRepository.insertAccount(
+    //               account_name,
+    //               password,
+    //               create_at,
+    //               refreshtoken,
+    //             );   
 
-                const accesstoken = generateAccessToken.GenerateAccessTokenForOwner(
-                    account_name,
-                    password,
-                    create_at,
-                    refreshtoken,
-                );
+    //             const accesstoken = generateAccessToken.GenerateAccessTokenForOwner(
+    //                 account_name,
+    //                 password,
+    //                 create_at,
+    //                 refreshtoken,
+    //             );
 
-                console.log(accesstoken);
+    //             console.log(accesstoken);
         
-                returnResponseUtil.returnResponse(
-                  res,
-                  200,
-                  true,
-                  `Đăng ký thành công`,
-                  accesstoken
-                );
-            };   
-        }  catch (error) {
-            console.log(error);
-            returnResponseUtil.returnResponse(
-              res,
-              400,
-              false,
-              `Đã xảy ra lỗi vui lòng thử lại`
-            );
-        }  
-    } 
+    //             returnResponseUtil.returnResponse(
+    //               res,
+    //               200,
+    //               true,
+    //               `Đăng ký thành công`,
+    //               accesstoken
+    //             );
+    //         };   
+    //     }  catch (error) {
+    //         console.log(error);
+    //         returnResponseUtil.returnResponse(
+    //           res,
+    //           400,
+    //           false,
+    //           `Đã xảy ra lỗi vui lòng thử lại`
+    //         );
+    //     }  
+    // } 
     
     static async checkExistAccount(req, res) {
         const account_name = req.params.account_name;

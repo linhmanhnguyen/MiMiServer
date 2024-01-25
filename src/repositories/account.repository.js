@@ -9,20 +9,13 @@ class AccountRepository {
 
     static async searchAccountByAccountName(accountname) {
         const query = ` 
-            SELECT 
-                Accounts.id, Accounts.account_name, Accounts.password, Accounts.role_id, Roles.role_name, Users.id, Users.user_name
-            FROM 
-                Accounts
-            JOIN 
-                Users ON Accounts.user_id = Users.id
-            JOIN 
-                Roles ON Accounts.role_id = Roles.id
-            WHERE 
-                Accounts.account_name = ?;
+            SELECT * FROM Accounts WHERE account_name = ?
         `;
 
+        console.log(accountname);
         const params = [accountname];
         const result = await connection.query(query, params);
+        console.log(result);
         return result;
     }
 
