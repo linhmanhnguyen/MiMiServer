@@ -29,9 +29,9 @@ class AuthController {
           } else {
             const token =
                 generateAccessToken.GenerateAccessTokenForOwnerWhenLogin(
-                  account[0].accountID,
-                  account[0].userID,
-                  account[0].roleID,
+                  account[0].id,
+                  account[0].user_id,
+                  account[0].role_id,
                 );
               returnResponseUtil.returnResponse(
                 res,
@@ -40,6 +40,7 @@ class AuthController {
                 "Đăng nhập thành công",
                 token
               );
+          console.log(token)
           }
         } else {
           returnResponseUtil.returnResponse(

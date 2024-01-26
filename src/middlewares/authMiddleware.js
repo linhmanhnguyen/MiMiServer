@@ -10,14 +10,15 @@ function authenticateToken(req, res, next) {
 
   const token = authHeader.split(" ")[1];
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, account) => {
     if (err) {
       return returnResponseUtil.returnResponse(res, 403, false, err);
     }
 
-    req.user = user;
+    req.account = account;
     next();
   });
 }
 
 module.exports = { authenticateToken };
+

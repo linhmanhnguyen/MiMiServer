@@ -3,8 +3,19 @@ const router = require("express").Router();
 
 const messageController = require('../controllers/message.controller');
 
-router.post("/", messageController.insertMessages);
-router.get('/conversation/:conversation_id',  messageController.getMessagesByConversationId);
+const { authenticateToken } = require("../middlewares/authMiddleware");
+const { authorize } = require("../middlewares/authorizeMiddleware");
+
+router.post("/", 
+    authenticateToken,
+    authorize([2]),
+    messageController.insertMessages
+);
+router.get('/conversation/:conversation_id',  
+    authenticateToken,
+    authorize([2]),
+    messageController.getMessagesByConversationId
+);
 
 
 module.exports = router;

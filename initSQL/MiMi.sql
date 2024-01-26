@@ -30,7 +30,10 @@ CREATE TABLE Accounts (
     FOREIGN KEY (role_id) REFERENCES Roles(id),
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
-SELECT * FROM Accounts WHERE account_name = 'linh';
+SELECT * FROM Accounts WHERE account_name = 'abcd';
+UPDATE Accounts
+SET role_id = 2
+WHERE account_name = 'abcd';
 
 
 CREATE TABLE Conversations (

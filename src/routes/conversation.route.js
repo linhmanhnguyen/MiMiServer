@@ -2,14 +2,37 @@ const express = require('express');
 const router = express.Router();
 const conversationController = require('../controllers/conversation.controller');
 
-router.post('/', conversationController.createConversation);
+const { authenticateToken } = require("../middlewares/authMiddleware");
+const { authorize } = require("../middlewares/authorizeMiddleware");
 
-router.get('/', conversationController.getAllConversations);
+router.post('/', 
+    authenticateToken,
+    authorize([2]),
+    conversationController.createConversation
+);
 
-router.get('/:id', conversationController.getConversationById);
+router.get('/', 
+    authenticateToken,
+    authorize([2]),
+    conversationController.getAllConversations
+);
 
-router.put('/:id', conversationController.updateConversation);
+router.get('/:id', 
+    authenticateToken,
+    authorize([2]), 
+    conversationController.getConversationById
+);
 
-router.delete('/:id', conversationController.deleteConversation);
+router.put('/:id', 
+    authenticateToken,
+    authorize([2]),
+    conversationController.updateConversation
+);
+
+router.delete('/:id', 
+    authenticateToken,
+    authorize([2]),
+    conversationController.deleteConversation
+);
 
 module.exports = router;
