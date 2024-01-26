@@ -17,6 +17,12 @@ router.get('/',
     conversationController.getAllConversations
 );
 
+router.get('/account/:account_id',
+    authenticateToken,
+    authorize([2]),
+    conversationController.getConversationsByAccountID
+);
+
 router.get('/:id', 
     authenticateToken,
     authorize([2]), 

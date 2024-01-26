@@ -7,26 +7,27 @@ class ConversationController {
         try {
             await conversationSchema.validate(req.body);
 
-            const name_conversation = req.body.name;
+            const name_conversation = req.body.name_conversation;
+            const account_id = req.body.account_id;
 
-            const result = await conversationRepository.createConversation(name_conversation);
+            const result = await conversationRepository.createConversation(name_conversation, account_id);
 
             if (result) {
                 returnReponseUtil.returnResponse(
                     res,
                     200,
                     true,
-                    "Successfully created conversation",
+                    "Tạo cuộc trò chuyện thành công",
                     result.insertId
                 );
             }
         } catch (error) {
-            console.error("Error creating conversation:", error);
+            console.error("Lỗi khi tạo cuộc trò chuyện", error);
             returnReponseUtil.returnResponse(
                 res,
                 400,
                 false,
-                "An error has occurred, please try again"
+                "Đã có lỗi xảy ra, vui lòng thử lại"
             );
         }
     }
@@ -39,6 +40,24 @@ class ConversationController {
             console.error('Lỗi khi lấy danh sách cuộc trò chuyện:', error);
             returnReponseUtil.returnResponse(res, 500, false, 'Đã xảy ra lỗi server');
         }
+    }
+
+    static async getConversationsByAccountID(req, res) {
+        try {
+            const accountID = req.params.account_id;
+            const result = await conversationRepository.getConversationsByAccountID(accountID);
+            
+            if (!result) {
+                returnReponseUtil.returnResponse(res, 404, false, 'Không tìm thấy cuộc trò chuyện');
+            } else {
+                returnReponseUtil.returnResponse(res, 200, false, 'Danh sách cuộc trò chuyện', result);
+            }
+
+        } catch (error) {
+            console.error('Lỗi khi lấy ra danh sách', error);
+            returnReponseUtil.returnResponse(res, 500, false, 'Đã xảy ra lỗi server');
+        }
+        
     }
 
     static async getConversationById(req, res) {

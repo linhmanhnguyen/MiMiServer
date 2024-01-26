@@ -2,9 +2,9 @@ const connection = require("../configs/MySQLConnect");
 
 class ConversationRepository {
 
-    static async createConversation(name_conversation) {
-        const query = `INSERT INTO Conversations(name_conversation) VALUES (?)`;
-        const params = [name_conversation];
+    static async createConversation(name_conversation, account_id) {
+        const query = `INSERT INTO Conversations(name_conversation, account_id) VALUES (?, ?)`;
+        const params = [name_conversation, account_id];
         const result = await connection.query(query, params);
         return result;
     }
@@ -17,13 +17,20 @@ class ConversationRepository {
 
     static async getConversationById(conversationId) {
         const query = 'SELECT * FROM conversations WHERE id = ?';
-        const conversation = await connection.query(query, [conversationId]);
+        const result = await connection.query(query, [conversationId]);
 
-        if (conversation.length > 0) {
-            return conversation[0];
+        if (result.length > 0) {
+            return result[0];
         } else {
             return null;
         }
+    }
+
+    static async getConversationsByAccountID(accountID) {
+        const query = 'SELECT * FROM conversations WHERE account_id = ?';
+        const result = await connection.query(query, [accountID]);
+
+        return result.length > 0 ? result : null;
     }
 
     static async updateConversation(conversationId, updatedData) {

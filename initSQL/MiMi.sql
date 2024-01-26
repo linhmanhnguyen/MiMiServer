@@ -43,6 +43,10 @@ CREATE TABLE Conversations (
     account_id INT
 );
 
+INSERT INTO Conversations (name_conversation, account_id) VALUES (
+	'Conversation 2', 1
+);
+
 CREATE TABLE Messages (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     content TEXT,
@@ -58,3 +62,5 @@ SELECT * FROM Users;
 SELECT * FROM Accounts;
 SELECT * FROM Conversations;
 SELECT * FROM Messages;
+
+SELECT * FROM conversations WHERE account_id = 1
