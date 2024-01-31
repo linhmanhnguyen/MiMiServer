@@ -3,13 +3,10 @@ const moment = require("moment-timezone");
 
 const accountRepository = require('../repositories/account.repository');
 const {
-    // accountSchema,
-    // registerAccountSchema,
     updateAccountSchema
 } = require('../validations/accountSchema');
 
 const returnResponseUtil = require('../utils/returnResponse');
-// const GenerateAccessToken = require('../utils/generateAccessToken');
 
 const currentTime = moment()
   .tz("Asia/Ho_Chi_Minh")

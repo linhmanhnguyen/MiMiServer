@@ -15,3 +15,7 @@ class AccountModel {
         this.user_id = user_id;
     };
 }
+
+module.exports = AccountModel;
+ 
+
