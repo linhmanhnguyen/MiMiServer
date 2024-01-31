@@ -7,13 +7,13 @@ const { authorize } = require("../middlewares/authorizeMiddleware");
 
 router.post('/', 
     authenticateToken,
-    authorize([1,2]),
+    authorize([1]),
     conversationController.createConversation
 );
 
 router.get('/', 
     authenticateToken,
-    authorize([1,2]),
+    authorize([1]),
     conversationController.getAllConversations
 );
 
@@ -31,7 +31,7 @@ router.get('/:id',
 
 router.put('/:id', 
     authenticateToken,
-    authorize([1,2]),
+    authorize([1]),
     conversationController.updateConversation
 );
 
