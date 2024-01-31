@@ -50,7 +50,7 @@ class ConversationController {
             if (!result) {
                 returnReponseUtil.returnResponse(res, 404, false, 'Không tìm thấy cuộc trò chuyện');
             } else {
-                returnReponseUtil.returnResponse(res, 200, false, 'Danh sách cuộc trò chuyện', result);
+                returnReponseUtil.returnResponse(res, 200, true, 'Danh sách cuộc trò chuyện', result);
             }
 
         } catch (error) {
@@ -58,6 +58,25 @@ class ConversationController {
             returnReponseUtil.returnResponse(res, 500, false, 'Đã xảy ra lỗi server');
         }
         
+    }
+
+    static async getConversationByConversationName(req, res) {
+        try {
+            const conversationName =  req.body.name_conversation;
+            const result = await conversationRepository.getConversationByConversationName(conversationName);
+            
+            console.log(conversationName)
+            console.log(result)
+
+            if (!result) {
+                returnReponseUtil.returnResponse(res, 404, false, 'Không tìm thấy cuộc trò chuyện');
+            } else {
+                returnReponseUtil.returnResponse(res, 200, true, 'Danh sách cuộc trò chuyện', result);
+            }
+        } catch (error) {
+            console.error('Lỗi khi lấy ra danh sách', error);
+            returnReponseUtil.returnResponse(res, 500, false, 'Đã xảy ra lỗi server');
+        }
     }
 
     static async getConversationById(req, res) {

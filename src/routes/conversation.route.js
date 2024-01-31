@@ -13,7 +13,7 @@ router.post('/',
 
 router.get('/', 
     authenticateToken,
-    authorize([1]),
+    authorize([2]),
     conversationController.getAllConversations
 );
 
@@ -21,6 +21,12 @@ router.get('/account/:account_id',
     authenticateToken,
     authorize([1,2]),
     conversationController.getConversationsByAccountID
+);
+
+router.post('/search-conversation-by-name',
+    authenticateToken,
+    authorize([1,2]),
+    conversationController.getConversationByConversationName
 );
 
 router.get('/:id', 

@@ -26,6 +26,19 @@ class ConversationRepository {
         }
     }
 
+    static async getConversationByConversationName(conversationName) {
+        const query = 'SELECT * FROM conversations WHERE name_conversation = ?';
+        const result = await connection.query(query, [conversationName]);
+        
+        console.log(result);
+
+        if (result.length > 0) {
+            return result;
+        } else {
+            return null;
+        }
+    }
+
     static async getConversationsByAccountID(accountID) {
         const query = 'SELECT * FROM conversations WHERE account_id = ?';
         const result = await connection.query(query, [accountID]);

@@ -63,3 +63,5 @@ SELECT * FROM Accounts;
 SELECT * FROM Conversations;
 SELECT * FROM Messages;
 
+SELECT * FROM conversations WHERE name_conversation = "Conversation 1";
+
