@@ -4,7 +4,9 @@ const fs = require('fs');
 
 class CrawDataController {
   static async getDataInWebSite(req, res) {
-    const { url } = req.body;
+    const url = req.body.url;
+    const domain = req.body.domain;
+    const protocol = req.body.protocol;
 
     if (!url) {
       return returnResponseUtil.returnResponse(res, 400, false, 'Không tìm thấy url');
@@ -16,12 +18,12 @@ class CrawDataController {
       const page = await browser.newPage();
       await page.goto(url);
 
-      const pageUrls = await page.evaluate(() => {
-        const urlArray = Array.from(document.links).filter((link) => link.href.includes("vietdevelopers.com") && link.href.includes("https")).map((link) => link.href);
+      const pageUrls = await page.evaluate((domain, protocol) => {
+        const urlArray = Array.from(document.links).filter((link) => link.href.includes(domain) && link.href.includes(protocol)).map((link) => link.href);
         const uniqueUrlArray = [...new Set(urlArray)];
         console.log(uniqueUrlArray);
         return uniqueUrlArray;
-      });
+      }, domain, protocol);
       
       const site_url_json = { site: url, urls: pageUrls };
       fs.writeFileSync("data.json", JSON.stringify(site_url_json));
