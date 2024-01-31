@@ -63,4 +63,3 @@ SELECT * FROM Accounts;
 SELECT * FROM Conversations;
 SELECT * FROM Messages;
 
-SELECT * FROM conversations WHERE account_id = 1

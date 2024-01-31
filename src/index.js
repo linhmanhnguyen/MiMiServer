@@ -4,7 +4,7 @@ const app = express();
 
 const authRouter = require('./routes/auth.route');
 const accountRouter = require('./routes/account.route');
-const messageRouter = require('./routes/chat.route');
+const messageRouter = require('./routes/message.route');
 const conversationRouter = require('./routes/conversation.route');
 
 app.use(bodyParser.json());

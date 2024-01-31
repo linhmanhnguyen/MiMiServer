@@ -1,5 +1,4 @@
 const connection = require("../configs/MySQLConnect");
-const messageModel = require('../models/message.model');
 
 class MessagesRepository {
     

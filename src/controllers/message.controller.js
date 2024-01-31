@@ -1,7 +1,5 @@
 const messageSchema = require('../validations/messageSchema');
-const messageModel = require('../models/message.model');
 const messageRepository = require('../repositories/message.repository');
-const conversationRepository = require('../repositories/conversation.repository');
 const returnReponseUtil = require('../utils/returnResponse');
 
 class MessageController {

@@ -30,7 +30,7 @@ class ConversationRepository {
         const query = 'SELECT * FROM conversations WHERE account_id = ?';
         const result = await connection.query(query, [accountID]);
 
-        return result.length > 0 ? result : null;
+        return result.length > 0 ? result : null;ç
     }
 
     static async updateConversation(conversationId, updatedData) {

@@ -1,10 +1,11 @@
 const returnResponseUtil = require("../utils/returnResponse");
 
-function authorize(roles) {
+function authorize(allowedRoles) {
   return (req, res, next) => {
     const accountRole = req.account.roleID;
-    console.log(accountRole)
-    if (!roles.includes(accountRole)) {
+    console.log(accountRole);
+
+    if (!allowedRoles.includes(accountRole)) {
       returnResponseUtil.returnResponse(
         res,
         403,
@@ -13,9 +14,11 @@ function authorize(roles) {
       );
     }
 
-    console.log(roles);
+    console.log(allowedRoles);
     next();
   };
 }
 
 module.exports = { authorize };
+
+

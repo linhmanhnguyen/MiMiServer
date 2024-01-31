@@ -8,12 +8,12 @@ const { authorize } = require("../middlewares/authorizeMiddleware");
 
 router.post("/", 
     authenticateToken,
-    authorize([2]),
+    authorize([1,2]),
     messageController.insertMessages
 );
 router.get('/conversation/:conversation_id',  
     authenticateToken,
-    authorize([2]),
+    authorize([1,2]),
     messageController.getMessagesByConversationId
 );
 
