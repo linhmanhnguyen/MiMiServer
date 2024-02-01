@@ -2,23 +2,27 @@ const jwt = require("jsonwebtoken");
 const returnResponseUtil = require("../utils/returnResponse");
 
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers.authorization;
+  try {
+    const authHeader = req.headers.authorization;
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return returnResponseUtil.returnResponse(res, 401, false, `Unauthorized`);
-  }
-
-  const token = authHeader.split(" ")[1];
-
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, account) => {
-    if (err) {
-      return returnResponseUtil.returnResponse(res, 403, false, err);
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      throw new Error("Unauthorized");
     }
 
-    req.account = account;
-    next();
-  });
+    const token = authHeader.split(" ")[1];
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, account) => {
+      if (err) {
+        throw err;
+      }
+
+      req.account = account;
+      next();
+    });
+  } catch (error) {
+    throw new Error("Unauthorized");
+    // returnResponseUtil.returnResponse(res, 403, false, error.message);
+  }
 }
 
 module.exports = { authenticateToken };
-
