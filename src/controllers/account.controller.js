@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const moment = require("moment-timezone");
 
 const accountRepository = require('../repositories/account.repository');
 const {
