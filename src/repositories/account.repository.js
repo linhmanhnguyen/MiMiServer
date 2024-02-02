@@ -31,7 +31,7 @@ class AccountRepository {
     ) {
         const query = `
             INSERT INTO Accounts (account_name, password, create_at, refreshToken)
-            VALUES (?, ?, ?, ?)
+            VALUES (?, ?, CURRENT_TIMESTAMP(), ?)
         `;
 
         const hashedPassword = await bcrypt.hash(password, 10);

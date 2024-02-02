@@ -65,3 +65,7 @@ SELECT * FROM Messages;
 
 SELECT * FROM conversations WHERE name_conversation = "Conversation 1";
 
+ALTER TABLE Messages
+ADD COLUMN create_at TIMESTAMP;
+
+

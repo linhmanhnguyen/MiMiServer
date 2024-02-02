@@ -20,8 +20,7 @@ function authenticateToken(req, res, next) {
       next();
     });
   } catch (error) {
-    throw new Error("Unauthorized");
-    // returnResponseUtil.returnResponse(res, 403, false, error.message);
+    returnResponseUtil.returnResponse(res, 403, false, error.message);
   }
 }
 

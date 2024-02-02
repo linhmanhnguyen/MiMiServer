@@ -13,7 +13,7 @@ router.post('/',
 
 router.get('/', 
     authenticateToken,
-    authorize([2]),
+    authorize([1]),
     conversationController.getAllConversations
 );
 

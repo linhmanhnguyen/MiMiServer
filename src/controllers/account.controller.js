@@ -8,10 +8,6 @@ const {
 
 const returnResponseUtil = require('../utils/returnResponse');
 
-const currentTime = moment()
-  .tz("Asia/Ho_Chi_Minh")
-  .format("YYYY-MM-DD_HH-mm-ss");
-
 class AccountController {
 
     static async getAllAccounts(req, res) {

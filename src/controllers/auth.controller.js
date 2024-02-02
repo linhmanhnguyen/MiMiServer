@@ -5,11 +5,6 @@ const { registerAccountSchema } = require("../validations/accountSchema");
 const generateAccessToken = require('../utils/generateAccessToken');
 const returnResponseUtil = require('../utils/returnResponse');
 
-const moment = require("moment-timezone");
-const currentTime = moment()
-  .tz("Asia/Ho_Chi_Minh")
-  .format("YYYY-MM-DD_HH-mm-ss");
-
 class AuthController {
 
     static async login(req, res) {
@@ -40,7 +35,6 @@ class AuthController {
                 "Đăng nhập thành công",
                 token
               );
-          console.log(token)
           }
         } else {
           returnResponseUtil.returnResponse(
@@ -49,7 +43,7 @@ class AuthController {
             false,
             `Tài khoản không tồn tại`
           );
-        }
+        }          
     }
     static async checkExistAccount(req, res) {
         const account_name = req.params.account_name;
@@ -71,7 +65,7 @@ class AuthController {
             `Tên tài khoản hợp lệ`
           );
         }
-      }
+    }
 
 }
 

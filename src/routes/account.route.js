@@ -14,7 +14,7 @@ router.get('/',
 
 router.get('/:id',
  authenticateToken,
- authorize([2]),
+ authorize([1]),
  accountController.getAccountByID
 );
 router.put('/change-password/:id',

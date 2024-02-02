@@ -6,10 +6,11 @@ class MessagesRepository {
         content,
         account_id,
         conversation_id,
-        status
+        status, 
+        create_at
     ) {
-        const query = ` INSERT INTO Messages(content, account_id, conversation_id, status) VALUES (?, ?, ?, ?) `
-        const params = [content, account_id, conversation_id, status];
+        const query = ` INSERT INTO Messages(content, account_id, conversation_id, status, create_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP()) `
+        const params = [content, account_id, conversation_id, status, create_at];
         const result = await connection.query(query, params);
         return result;
     }
@@ -21,7 +22,8 @@ class MessagesRepository {
                 Messages.account_id AS account_id,
                 Conversations.id AS conversation_id,
                 Conversations.name_conversation,
-                Messages.status
+                Messages.status,
+                Messages.create_at
             FROM 
                 Messages
             JOIN 
