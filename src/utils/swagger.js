@@ -89,7 +89,7 @@ swaggerSpec.paths['/accounts/{id}'] = {
                         example: {
                             status: true,
                             message: 'Thành công',
-                            data: {/* ... */ },
+                            data: {},
                         },
                     },
                 },
@@ -361,7 +361,7 @@ swaggerSpec.paths['/conversations'] = {
                         example: {
                             status: true,
                             message: 'Tạo cuộc trò chuyện thành công',
-                            data: 1, // ID của cuộc trò chuyện mới được tạo
+                            data: 1,
                         },
                     },
                 },
@@ -394,7 +394,7 @@ swaggerSpec.paths['/conversations'] = {
                         example: {
                             status: true,
                             message: 'Danh sách cuộc trò chuyện',
-                            data: [/* ... */],
+                            data: [],
                         },
                     },
                 },
@@ -438,7 +438,7 @@ swaggerSpec.paths['/conversations/account/{account_id}'] = {
                         example: {
                             status: true,
                             message: 'Danh sách cuộc trò chuyện',
-                            data: [/* ... */],
+                            data: [],
                         },
                     },
                 },
@@ -493,7 +493,7 @@ swaggerSpec.paths['/messages'] = {
                         example: {
                             status: true,
                             message: 'Tin nhắn được thêm vào cuộc hội thoại thành công',
-                            data: 1, // ID của tin nhắn mới được thêm vào
+                            data: 1, 
                         },
                     },
                 },
@@ -537,7 +537,7 @@ swaggerSpec.paths['/messages/conversation/{conversation_id}'] = {
                         example: {
                             status: true,
                             message: 'Danh sách tin nhắn',
-                            data: [/* ... */],
+                            data: [],
                         },
                     },
                 },
@@ -592,7 +592,7 @@ swaggerSpec.paths['/messages/{id}'] = {
                         example: {
                             status: true,
                             message: 'Tin nhắn đã bị xoá',
-                            data: [/* ... */],
+                            data: [],
                         },
                     },
                 },
@@ -647,7 +647,7 @@ swaggerSpec.paths['/crawl-data'] = {
                         example: {
                             status: true,
                             message: 'Lấy dữ liệu thành công',
-                            data: ['url1', 'url2', 'url3'], // Danh sách các URL lấy được từ website
+                            data: ['url1', 'url2', 'url3'],
                         },
                     },
                 },
