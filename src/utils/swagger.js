@@ -342,6 +342,7 @@ swaggerSpec.paths['/conversations'] = {
         tags: ['Conversation'],
         summary: 'Tạo cuộc trò chuyện',
         description: 'API này cho phép tạo mới một cuộc trò chuyện.',
+        security: [{ BearerAuth: [] }],
         requestBody: {
             content: {
                 'application/json': {
@@ -386,6 +387,7 @@ swaggerSpec.paths['/conversations'] = {
         tags: ['Conversation'],
         summary: 'Lấy danh sách tất cả cuộc trò chuyện',
         description: 'API này cung cấp danh sách tất cả các cuộc trò chuyện.',
+        security: [{ BearerAuth: [] }],
         responses: {
             200: {
                 description: 'Danh sách cuộc trò chuyện được trả về thành công',
@@ -419,6 +421,7 @@ swaggerSpec.paths['/conversations/account/{account_id}'] = {
         tags: ['Conversation'],
         summary: 'Lấy danh sách cuộc trò chuyện của một tài khoản dựa trên ID',
         description: 'API này cung cấp danh sách cuộc trò chuyện của một tài khoản dựa trên ID.',
+        security: [{ BearerAuth: [] }],
         parameters: [
             {
                 name: 'account_id',
@@ -474,6 +477,7 @@ swaggerSpec.paths['/messages'] = {
         tags: ['Message'],
         summary: 'Thêm tin nhắn vào cuộc trò chuyện',
         description: 'API này cho phép thêm tin nhắn vào cuộc trò chuyện.',
+        security: [{ BearerAuth: [] }],
         requestBody: {
             content: {
                 'application/json': {
@@ -518,6 +522,7 @@ swaggerSpec.paths['/messages/conversation/{conversation_id}'] = {
         tags: ['Message'],
         summary: 'Lấy tin nhắn theo ID cuộc trò chuyện',
         description: 'API này cung cấp danh sách tin nhắn theo ID cuộc trò chuyện.',
+        security: [{ BearerAuth: [] }],
         parameters: [
             {
                 name: 'conversation_id',
@@ -573,6 +578,7 @@ swaggerSpec.paths['/messages/{id}'] = {
         tags: ['Message'],
         summary: 'Xoá tin nhắn theo ID',
         description: 'API này cho phép xoá một tin nhắn dựa trên ID.',
+        security: [{ BearerAuth: [] }],
         parameters: [
             {
                 name: 'id',
@@ -628,6 +634,7 @@ swaggerSpec.paths['/crawl-data'] = {
         tags: ['Crawl Data'],
         summary: 'Lấy dữ liệu từ website',
         description: 'API này cho phép lấy dữ liệu từ website dựa trên URL, domain, và protocol cung cấp.',
+        security: [{ BearerAuth: [] }],
         requestBody: {
             content: {
                 'application/json': {
